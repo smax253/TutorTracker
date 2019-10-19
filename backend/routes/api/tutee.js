@@ -8,7 +8,9 @@ var router = express.Router();
 router.get('/', async (req, res) => {
     const tutee = await loadTuteeCollection();
     res.send(await tutee.find({}).toArray());
-})
+});
+
+
 
 // Add tutee
 router.post('/', async (req, res) => {
@@ -18,7 +20,7 @@ router.post('/', async (req, res) => {
         createdAt: new Date()
     });
     res.status(201).send();
-})
+});
 // Delete tutee
 router.delete('/:id', async (req, res) =>{
     const tutee = await loadTuteeCollection();
@@ -33,7 +35,7 @@ async function loadTuteeCollection() {
         }
     );
 
-    return client.db('tutee_list').collection('tutees');
+    return client.db('tutee_list').collection("tutees");
 }
 
 module.exports = router;

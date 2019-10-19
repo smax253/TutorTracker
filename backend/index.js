@@ -7,11 +7,13 @@ const app = express();
 //Middleware
 app.use(bodyParser.json());
 app.use(cors());
-const index = require('./routes/index');
 const tutor = require('./routes/api/tutor');
+const newuser = require('./routes/api/newuser');
+const tutee = require('./routes/api/tutee');
 
 app.use('/api/tutor', tutor);
-app.use('/',index);
+app.use('/api/newuser',newuser);
+app.use('/api/tutee', tutee);
 
 const port = process.env.PORT || 5000;
 
