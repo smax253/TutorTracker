@@ -8,7 +8,7 @@ var router = express.Router();
 router.get('/', async (req, res) => {
     const tutor = await loadTutorCollection();
     res.send(await tutor.find({}).toArray());
-})
+});
 
 // Add tutor
 router.post('/', async (req, res) => {
@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
         createdAt: new Date()
     });
     res.status(201).send();
-})
+});
 // Delete tutor
 router.delete('/:id', async (req, res) =>{
     const tutor = await loadTutorCollection();
