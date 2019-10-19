@@ -1,39 +1,39 @@
-// tutor function for the api
+// tutee function for the api
 var express = require('express');
 var mongodb = require('mongodb');
 
 var router = express.Router();
 
-// Get tutor
+// Get tutee
 router.get('/', async (req, res) => {
-    const tutor = await loadTutorCollection();
-    res.send(await tutor.find({}).toArray());
-});
+    const tutee = await loadTuteeCollection();
+    res.send(await tutee.find({}).toArray());
+})
 
-// Add tutor
+// Add tutee
 router.post('/', async (req, res) => {
-    const tutor = await loadTutorCollection();
-    await tutor.insertOne({
+    const tutee = await loadTuteeCollection();
+    await tutee.insertOne({
         text: req.body.text,
         createdAt: new Date()
     });
     res.status(201).send();
-});
-// Delete tutor
+})
+// Delete tutee
 router.delete('/:id', async (req, res) =>{
-    const tutor = await loadTutorCollection();
-    await tutor.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    const tutee = await loadTuteeCollection();
+    await tutee.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
     res.status(200).send();
 });
 
-async function loadTutorCollection() {
+async function loadTuteeCollection() {
     const client = await mongodb.MongoClient.connect(
         'mongodb+srv://hackru:hackru2019@tutorcluster-gfcpf.mongodb.net/test?retryWrites=true&w=majority',{
             useNewUrlParser: true
         }
     );
 
-    return client.db('tutor_list').collection('tutors');
+    return client.db('tutee_list').collection('tutees');
 }
 
 module.exports = router;
