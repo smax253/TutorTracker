@@ -10,10 +10,12 @@ app.use(cors());
 const tutor = require('./routes/api/tutor');
 const newuser = require('./routes/api/newuser');
 const tutee = require('./routes/api/tutee');
+const auth = require('./routes/auth/auth');
 
 app.use('/api/tutor', tutor);
 app.use('/api/newuser',newuser);
 app.use('/api/tutee', tutee);
+app.use('/api/auth', auth);
 
 const port = process.env.PORT || 5000;
 

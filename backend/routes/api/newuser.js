@@ -6,10 +6,10 @@ var router = express.Router();
 router.post("/", async (res, req)=>{
     const users = loadUserCollection();
     await users.insertOne({
-        name:req.body.name,
+        name: req.body.name,
         classes: req.body.classes,
         image: req.body.image,
-        firebaseid: req.body.firebaseid
+        id: req.body.id
     })
 });
 
