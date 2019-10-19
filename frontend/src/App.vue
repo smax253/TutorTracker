@@ -10,7 +10,8 @@ import GoogleMap from "./components/GoogleMap"
 export default {
   name: 'app',
   components: {
-    GoogleMap
+    GoogleMap,
+    TutorButton
   },
   data () {
     return {
