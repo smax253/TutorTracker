@@ -1,28 +1,30 @@
 var express = require('express');
 var mongodb = require('mongodb');
-
+const mongocollection = require("../../mongo/collections");
 var router = express.Router();
 
-router.post("/", async (res, req)=>{
-    const users = loadUserCollection();
+router.post("/", async (req, res)=>{
+    const users = await mongocollection.users();
+    console.log(req);
+    console.log(req.body);
     await users.insertOne({
-        name:req.body.name,
+        name: req['body'].name,
         classes: req.body.classes,
         image: req.body.image,
-        firebaseid: req.body.firebaseid
-    })
+        _id: req.body['_id']
+    });
+    res.status(201).send();
 });
 
+router.get('/', async (req, res) => {
+    const user = await mongocollection.users();
+    res.send(await user.find({}).toArray());
+});
 
-
-async function loadUserCollection() {
-    const client = await mongodb.MongoClient.connect(
-        'mongodb+srv://hackru:hackru2019@tutorcluster-gfcpf.mongodb.net/test?retryWrites=true&w=majority',{
-            useNewUrlParser: true
-        }
-    );
-
-    return client.db('tutor_list').collection('users');
-}
+router.delete('/:id', async (req, res) =>{
+    const tutor = await mongocollection.users();
+    await tutor.deleteOne({_id: new mongodb.ObjectID(req.params.id)});
+    res.status(200).send();
+});
 
 module.exports = router; 

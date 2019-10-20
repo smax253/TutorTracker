@@ -5,7 +5,9 @@ const cors = require('cors');
 const app = express();
 
 //Middleware
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({ type: "*/*" }));
+
 app.use(cors());
 const tutor = require('./routes/api/tutor');
 const newuser = require('./routes/api/newuser');
