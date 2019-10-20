@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <GoogleMap />
+    <GoogleMap @currCoordinates="setCurrentCoordinates" />
     <br>
     <CourseSelector @courseCode="queryCourseCode" />
   </div>
@@ -29,10 +29,13 @@ export default {
     }
   },
   methods: {
-    queryCourseCode(selectedCourseCode) {//, currLat, currLon) {
-      const currLat = "40.4920609";
-      const currLon = "-74.4409317";
-      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${currLat}&lon=${currLon}`)
+    setCurrentCoordinates(currCoordinates) {
+      console.log(currCoordinates);
+      this.currLat = currCoordinates.lat;
+      this.currLon = currCoordinates.lon;
+    },
+    queryCourseCode(selectedCourseCode) {
+      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
         .then(response => response.json())
         .then(json => console.log(json));
     }
