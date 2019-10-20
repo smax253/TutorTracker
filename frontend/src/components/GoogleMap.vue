@@ -18,21 +18,20 @@
 <script>
 export default {
   name: "GoogleMap",
+  props: [
+    "nearbyTutors"
+  ],
   data() {
     return {
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
-      center: { lat: 45.508, lng: -73.587 },
+      center: { lat: 40.502545999999995, lng: -74.4525072 },
       markers: [],
       places: [],
       currentPlace: null
     };
   },
-
   mounted() {
     this.geolocate();
   },
-
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {

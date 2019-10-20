@@ -1,13 +1,26 @@
 <template>
   <div id="app">
-    <header>Tutor Tracker</header>
+    <CourseSelector
+                  v-bind:availableCourses="this.availableCourses"
+                  @courseCode="queryCourseCode"
+                  v-if="!hasPickedCourse"
+      />            
+    <header
+                  v-if="hasPickedCourse"
+
+    >Tutor Tracker</header>
     <div class="container">
         <div class="left">
-            <CourseSelector @courseCode="queryCourseCode" />
-            <TutorList :nearbyTutors="responseNearbyTutors" />
+          <TutorList
+              v-if="hasPickedCourse && hasReceivedResponse"
+              :nearbyTutors="foundNearbyTutors"
+          />
         </div>
         <div class="right">
-            <GoogleMap @currCoordinates="setCurrentCoordinates" />
+          <GoogleMap
+              v-if="hasPickedCourse"
+              @currCoordinates="setCurrentCoordinates"
+          />
         </div>
     </div>
   </div>
@@ -29,11 +42,18 @@ export default {
   },
   data () {
     return {
-      // for querying nearest tutors
+      availableCourses: [
+          "CS115",
+          "CS114",
+          "MAT305",
+          "MUS110",
+          "GER223"
+      ],
       currLat: "",
       currLon: "",
-
-      responseNearbyTutors: [
+      hasPickedCourse: false,
+      hasReceivedResponse: false,
+      foundearbyTutors: [
         {
           img: "",
           name: "Alvin Tam",
@@ -45,15 +65,19 @@ export default {
   },
   methods: {
     setCurrentCoordinates(currCoordinates) {
-      console.log(currCoordinates);
+      // console.log(currCoordinates);
       this.currLat = currCoordinates.lat;
       this.currLon = currCoordinates.lon;
     },
     queryCourseCode(selectedCourseCode) {
       console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
+      this.hasPickedCourse = true;
       fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
         .then(response => response.json())
-        .then(json => console.log(json));
+        .then(json => {
+          console.log(json);
+          this.hasReceivedResponse = true;
+        });
     }
   }
 }
