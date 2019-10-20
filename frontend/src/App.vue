@@ -72,7 +72,8 @@ export default {
               img: "../${tutor.img}",
               name: tutor.name,
               location: tutor.location,
-              duration: tutor.distance.text
+              duration: 5
+              // duration: tutor.distance.text
             })
           });
           console.log(foundNearbyTutors);
