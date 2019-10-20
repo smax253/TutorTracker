@@ -3,12 +3,15 @@
     <GoogleMap @currCoordinates="setCurrentCoordinates" />
     <br>
     <CourseSelector @courseCode="queryCourseCode" />
+    <br>
+    <TutorList :nearbyTutors="responseNearbyTutors" />
   </div>
 </template>
 
 <script>
 import GoogleMap from "./components/GoogleMap"
 import CourseSelector from "./components/CourseSelector"
+import TutorList from "./components/TutorList"
 
 const ENDPOINT = 'https://tutortracker.appspot.com/api/tutor';
 
@@ -16,15 +19,23 @@ export default {
   name: 'app',
   components: {
     GoogleMap,
-    CourseSelector
+    CourseSelector,
+    TutorList
   },
   data () {
     return {
       // for querying nearest tutors
       currLat: "",
-      currLon: ""
+      currLon: "",
 
-      // placeholder
+      responseNearbyTutors: [
+        {
+          img: "",
+          name: "Alvin Tam",
+          location: "Room 224 Library",
+          duration: "5"
+        }
+      ]
     }
   },
   methods: {
@@ -34,6 +45,7 @@ export default {
       this.currLon = currCoordinates.lon;
     },
     queryCourseCode(selectedCourseCode) {
+      console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
       fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
         .then(response => response.json())
         .then(json => console.log(json));
