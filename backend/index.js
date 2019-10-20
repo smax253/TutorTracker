@@ -12,10 +12,12 @@ app.use(cors());
 const tutor = require('./routes/api/tutor');
 const newuser = require('./routes/api/newuser');
 const tutee = require('./routes/api/tutee');
+const texting = require('./routes/twilio/texting');
 
 app.use('/api/tutor', tutor);
 app.use('/api/newuser',newuser);
 app.use('/api/tutee', tutee);
+app.use('/api/twilio', texting);
 
 const port = process.env.PORT || 5000;
 

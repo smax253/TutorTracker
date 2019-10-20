@@ -19,22 +19,23 @@ router.get('/search', async (req, res) => {
     long = req.query.long;
     //console.log(req.query);
     const relevant = await tutor.find({classes:query}).toArray();
-    console.log(relevant);
+    //console.log(relevant);
     let coordinates = new Array();
     for (i=0, len = relevant.length; i<len; ++i){
         coordinates.push(relevant[i].lat+","+relevant[i].long);
     }
     origin = lat+","+long;
-    console.log(coordinates);
+    //console.log(coordinates);
     apicall = axios.get("https://maps.googleapis.com/maps/api/distancematrix/json?key="+creds.google+"&mode=walking&origins="+origin+"&destinations="+coordinates.join("|"))
                 .then(response => {
                     //console.log(response);
-                    console.log(response.data.rows);
+                    //console.log(response.data.rows);
                     times = response.data.rows[0].elements;
 
                     for(i=0, len=times.length; i<len; ++i){
                         relevant[i].duration = times[i].duration;
                     }
+                    relevant.sort((a,b)=>{return a.duration.value-b.duration.value});
                     res.send(relevant);
                 });
 
