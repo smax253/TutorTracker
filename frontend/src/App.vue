@@ -1,14 +1,11 @@
 <template>
   <div id="app">
     <CourseSelector
-                  v-bind:availableCourses="this.availableCourses"
-                  @courseCode="queryCourseCode"
-                  v-if="!hasPickedCourse"
-      />            
-    <header
-                  v-if="hasPickedCourse"
-
-    >Tutor Tracker</header>
+        v-bind:availableCourses="this.availableCourses"
+        @courseCode="queryCourseCode"
+        v-if="!hasPickedCourse"
+    />
+    <header v-if="hasPickedCourse">Tutor Tracker</header>
     <div class="container">
         <div class="left">
           <TutorList
@@ -19,7 +16,6 @@
         <div class="right">
           <GoogleMap
               v-if="hasPickedCourse"
-              @currCoordinates="setCurrentCoordinates"
           />
         </div>
     </div>
@@ -32,9 +28,6 @@ import CourseSelector from "./components/CourseSelector"
 import TutorList from "./components/TutorList"
 
 const ENDPOINT = 'https://tutortracker.appspot.com/api/tutor';
-const sleep = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
 
 export default {
   name: 'app',
@@ -54,44 +47,35 @@ export default {
         "BIO101",
         "CS115"
       ],
-      currLat: "",
-      currLon: "",
+      currLat: "40.7261",
+      currLon: "-74.2313",
       hasPickedCourse: false,
       hasReceivedResponse: false,
-      foundNearbyTutors: [
-        {
-          img: "",
-          name: "Alvin Tam",
-          location: "Room 224 Library",
-          duration: "5"
-        }
-      ]
+      foundNearbyTutors: []
     }
   },
   methods: {
-    setCurrentCoordinates(currCoordinates) {
-      // console.log(currCoordinates);
-      this.currLat = currCoordinates.lat;
-      this.currLon = currCoordinates.lon;
-    },
+    // setCurrentCoordinates(currCoordinates) {
+    //   console.log(currCoordinates);
+    //   this.currLat = currCoordinates.lat;
+    //   this.currLon = currCoordinates.lon;
+    // },
     queryCourseCode(selectedCourseCode) {
       this.hasPickedCourse = true;
-      sleep(5000).then(() => {
-        console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
-        fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
-          .then(response => response.json())
-          .then(json => {
-            json.forEach(tutor => {
-              foundNearbyTutors.append({
-                img: tutor.img,
-                name: tutor.name,
-                location: tutor.location,
-                duration: tutor.duration
-              })
-            });
-            this.hasReceivedResponse = true;
+      console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
+      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
+        .then(response => response.json())
+        .then(json => {
+          json.forEach(tutor => {
+            this.foundNearbyTutors.push({
+              img: tutor.img,
+              name: tutor.name,
+              location: tutor.location,
+              duration: tutor.distance.text
+            })
           });
-      });
+          this.hasReceivedResponse = true;
+        });
     }
   }
 }

@@ -10,7 +10,7 @@
         <div class="info">
           <h3>{{ e.name }}</h3>
           <p>{{ e.location }}</p>
-          <p>{{ e.duration }} min away</p>
+          <p>{{ e.duration }} away</p>
         </div>
       </div>
     </li>

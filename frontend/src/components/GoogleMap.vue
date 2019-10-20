@@ -51,10 +51,6 @@ export default {
     },
     geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.$emit("currCoordinates", {
-          lat: position.coords.latitude,
-          lon: position.coords.longitude
-        });
         this.center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
