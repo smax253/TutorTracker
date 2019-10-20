@@ -1,28 +1,40 @@
 <template>
   <div id="app">
     <GoogleMap />
-    <ul>
-      <li><TutorButton /></li>
-      <li><TutorButton /></li>
-      <li><TutorButton /></li>
-      <li><TutorButton /></li>
-    </ul>
+    <br>
+    <CourseSelector @courseCode="queryCourseCode" />
   </div>
 </template>
 
 <script>
 import GoogleMap from "./components/GoogleMap"
-import TutorButton from "./components/TutorButton"
+import CourseSelector from "./components/CourseSelector"
+
+const ENDPOINT = 'https://tutortracker.appspot.com/api/tutor';
 
 export default {
   name: 'app',
   components: {
     GoogleMap,
-    TutorButton
+    CourseSelector
   },
   data () {
     return {
+      // Course Selector fields
+      selectedCourseCode: "",
+      currLat: "",
+      currLon: ""
 
+      // placeholder
+    }
+  },
+  methods: {
+    queryCourseCode(selectedCourseCode) {//, currLat, currLon) {
+      const currLat = "40.4920609";
+      const currLon = "-74.4409317";
+      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${currLat}&lon=${currLon}`)
+        .then(response => response.json())
+        .then(json => console.log(json));
     }
   }
 }
