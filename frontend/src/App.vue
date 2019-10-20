@@ -32,6 +32,9 @@ import CourseSelector from "./components/CourseSelector"
 import TutorList from "./components/TutorList"
 
 const ENDPOINT = 'https://tutortracker.appspot.com/api/tutor';
+const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
 export default {
   name: 'app',
@@ -70,14 +73,16 @@ export default {
       this.currLon = currCoordinates.lon;
     },
     queryCourseCode(selectedCourseCode) {
-      console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
       this.hasPickedCourse = true;
-      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
-        .then(response => response.json())
-        .then(json => {
-          console.log(json);
-          this.hasReceivedResponse = true;
-        });
+      sleep(5000).then(() => {
+        console.log(`Lat: ${this.currLat}\nLon: ${this.currLon}`);
+        fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
+          .then(response => response.json())
+          .then(json => {
+            console.log(json);
+            this.hasReceivedResponse = true;
+          });
+      });
     }
   }
 }

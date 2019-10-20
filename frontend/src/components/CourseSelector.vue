@@ -13,13 +13,12 @@
       v-show="this.isOpen"
       class="autocomplete-results"
     >
-      
       <li
         v-for="(result, i) in this.results"
         :key="i"
         class="autocomplete-result"
       >
-        <button @click="submit">{{ result }}</button>
+        <button v-on:click="submit($event)" :value="result">{{ result }}</button>
       </li>
     </ul>
   </center>
@@ -40,9 +39,8 @@ export default {
     }
   },
   methods: {
-    submit() {
-      this.$emit("courseCode", this.selectedCourseCode);
-      this.selectedCourseCode = ""
+    submit(event) {
+      this.$emit("courseCode", event.target.value);
     },
     onChange() {
       this.filterResults();
