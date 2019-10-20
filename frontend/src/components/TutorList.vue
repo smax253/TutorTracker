@@ -5,7 +5,7 @@
     <li v-for="e in nearbyTutors" v-bind:value="e">
       <div class="tutor">
         <div>
-          <img src='../assets/tutor-photo.jpg'>
+          <img :src="e.img">
         </div>
         <div class="info">
           <h3>{{ e.name }}</h3>

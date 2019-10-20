@@ -66,14 +66,16 @@ export default {
       fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
         .then(response => response.json())
         .then(json => {
+          console.log(json);
           json.forEach(tutor => {
             this.foundNearbyTutors.push({
-              img: tutor.img,
+              img: "../${tutor.img}",
               name: tutor.name,
               location: tutor.location,
               duration: tutor.distance.text
             })
           });
+          console.log(foundNearbyTutors);
           this.hasReceivedResponse = true;
         });
     }
