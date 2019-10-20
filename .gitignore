@@ -61,3 +61,4 @@ typings/
 .next
 credentials.js
 frontend/node_modules/
+frontend/src/secrets.json

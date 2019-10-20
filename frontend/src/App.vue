@@ -1,30 +1,43 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <GoogleMap @currCoordinates="setCurrentCoordinates" />
+    <br>
+    <CourseSelector @courseCode="queryCourseCode" />
   </div>
 </template>
 
 <script>
+import GoogleMap from "./components/GoogleMap"
+import CourseSelector from "./components/CourseSelector"
+
+const ENDPOINT = 'https://tutortracker.appspot.com/api/tutor';
+
 export default {
   name: 'app',
+  components: {
+    GoogleMap,
+    CourseSelector
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      // Course Selector fields
+      selectedCourseCode: "",
+      currLat: "",
+      currLon: ""
+
+      // placeholder
+    }
+  },
+  methods: {
+    setCurrentCoordinates(currCoordinates) {
+      console.log(currCoordinates);
+      this.currLat = currCoordinates.lat;
+      this.currLon = currCoordinates.lon;
+    },
+    queryCourseCode(selectedCourseCode) {
+      fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
+        .then(response => response.json())
+        .then(json => console.log(json));
     }
   }
 }
