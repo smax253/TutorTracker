@@ -1,11 +1,18 @@
 <template>
   <div id="app">
     <GoogleMap />
+    <ul>
+      <li><TutorButton /></li>
+      <li><TutorButton /></li>
+      <li><TutorButton /></li>
+      <li><TutorButton /></li>
+    </ul>
   </div>
 </template>
 
 <script>
 import GoogleMap from "./components/GoogleMap"
+import TutorButton from "./components/TutorButton"
 
 export default {
   name: 'app',
