@@ -35,7 +35,6 @@ router.get('/search', async (req, res) => {
                     for(i=0, len=times.length; i<len; ++i){
                         relevant[i].duration = times[i].duration;
                     }
-                    relevant.sort((a,b)=>{return a.duration.value-b.duration.value});
                     res.send(relevant);
                 });
 

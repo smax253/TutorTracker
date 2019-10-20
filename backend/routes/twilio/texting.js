@@ -28,7 +28,7 @@ router.post("/", (req, res)=>{
                     for(i=0, len=times.length; i<len; ++i){
                         relevant[i].duration = times[i].duration;
                     }
-                    relevant.sort((a,b)=>{return a.duration.value-b.duration.value});
+                    relevant.sort((a,b)=>{return b.duration.value-a.duration.value});
                     responseobject = {
                         "actions":[
                             {
