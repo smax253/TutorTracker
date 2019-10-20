@@ -29,7 +29,7 @@ router.get('/search', async (req, res) => {
     //console.log(coordinates);
     apicall = axios.get("https://maps.googleapis.com/maps/api/distancematrix/json?key="+creds.google+"&mode=walking&origins="+origin+"&destinations="+coordinates.join("|"))
                 .then(response => {
-                    //console.log(response);
+                    console.log(response);
                     //console.log(response.data.rows);
                     times = response.data.rows[0].elements;
 
