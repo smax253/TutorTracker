@@ -1,0 +1,2 @@
+
+  {"Memory": {"ids":[],"twilio":{"chat":{"ChannelSid":"CH6d91ddc9d3ef46d5b1afd180ef204816","AssistantName":"","Attributes":{},"ServiceSid":"ISfdfac75916574c53b17d7303d383ac32","Index":23,"From":"user","MessageSid":"IM53d22eb8528d4cbfbedda2bb9af08630"},"collected_data":{"more_info":{"status":"complete","date_started":"2019-10-20T13:57:26Z","date_completed":"2019-10-20T13:57:32Z","answers":{"choice":{"answer":"1","filled":true,"attempts":1,"confirmed":false}}}}}}}
