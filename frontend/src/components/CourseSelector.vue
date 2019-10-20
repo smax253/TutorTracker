@@ -1,5 +1,5 @@
  <template>
-  <div class="cSelect">
+  <div class="landing">
     <center>
     <h1>literally uber for tutors</h1>
     <input
@@ -40,7 +40,10 @@ export default {
   },
   methods: {
     submit(event) {
-      this.$emit("courseCode", event.target.value);
+      // very hacky hehe
+      if (event.target.value !== "Available Courses") {
+        this.$emit("courseCode", event.target.value);
+      }
     },
     onChange() {
       this.filterResults();
@@ -51,8 +54,9 @@ export default {
         this.results = [];
       } else {
         this.results = this.availableCourses.filter(course => {
-        return course.toUpperCase().indexOf(this.selectedCourseCode.toUpperCase()) > -1;
-      });
+          return course.toUpperCase().indexOf(this.selectedCourseCode.toUpperCase()) > -1;
+        });
+        this.results.unshift("Available Courses");
       }
     },
   }
@@ -77,11 +81,12 @@ input {
   text-align: center;
 }
 
-.autocomplete-result {
+.autocomplete-result, .autocomplete-header {
   width: 51%;
   border: none;
   padding: none;
   margin: 1em;
+  list-style: none;
 }
 
 .autocomplete-result button {
