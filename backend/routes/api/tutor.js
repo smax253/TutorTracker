@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
     const tutor = await mongocollection.tutors();
     res.send(await tutor.find({}).toArray());
 });
+
 // Search tutor
 router.get('/search', async (req, res) => {
     const tutor = await mongocollection.tutors();
