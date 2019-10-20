@@ -1,7 +1,7 @@
  <template>
   <div class="landing">
     <center>
-    <h1>literally uber for tutors</h1>
+    <h1>TutorTracker</h1>
     <input
       class="prompt"
       type="text"
