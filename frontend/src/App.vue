@@ -46,17 +46,19 @@ export default {
   data () {
     return {
       availableCourses: [
-          "CS115",
-          "CS114",
-          "MAT305",
-          "MUS110",
-          "GER223"
+        "PH201",
+        "TH201",
+        "CHM101",
+        "SN101",
+        "ACC203",
+        "BIO101",
+        "CS115"
       ],
       currLat: "",
       currLon: "",
       hasPickedCourse: false,
       hasReceivedResponse: false,
-      foundearbyTutors: [
+      foundNearbyTutors: [
         {
           img: "",
           name: "Alvin Tam",
@@ -79,7 +81,14 @@ export default {
         fetch(`${ENDPOINT}/search?query=${selectedCourseCode}&lat=${this.currLat}&lon=${this.currLon}`)
           .then(response => response.json())
           .then(json => {
-            console.log(json);
+            json.forEach(tutor => {
+              foundNearbyTutors.append({
+                img: tutor.img,
+                name: tutor.name,
+                location: tutor.location,
+                duration: tutor.duration
+              })
+            });
             this.hasReceivedResponse = true;
           });
       });
