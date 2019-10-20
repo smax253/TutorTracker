@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <GoogleMap @currCoordinates="setCurrentCoordinates" />
-    <br>
-    <CourseSelector @courseCode="queryCourseCode" />
-    <br>
-    <TutorList :nearbyTutors="responseNearbyTutors" />
+    <header>Tutor Tracker</header>
+    <div class="container">
+        <div class="left">
+            <CourseSelector @courseCode="queryCourseCode" />
+            <TutorList :nearbyTutors="responseNearbyTutors" />
+        </div>
+        <div class="right">
+            <GoogleMap @currCoordinates="setCurrentCoordinates" />
+        </div>
+    </div>
   </div>
 </template>
 
@@ -56,29 +61,32 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
+  height: 100%;
+  font-family: 'Montserrat';
 }
 
-h1, h2 {
-  font-weight: normal;
+header {
+    display: block;
+    padding: 20px;
+    background-color: #2b2b2b;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5em;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.container {
+    display: flex;
+    flex-direction: row;
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+.left {
+    background-color: #fff;
+    max-width: 350px;
 }
 
-a {
-  color: #42b983;
+.right {
+    flex: 1;
 }
+
 </style>

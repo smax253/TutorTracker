@@ -4,9 +4,14 @@
   >
     <li v-for="e in nearbyTutors" v-bind:value="e">
       <div class="tutor">
-        <h3>{{ e.name }}</h3>
-        <h4>{{ e.location }}</h4>
-        <h4>{{ e.duration }}</h4>
+        <div>
+          <img src='../assets/tutor-photo.jpg'>
+        </div>
+        <div class="info">
+          <h3>{{ e.name }}</h3>
+          <p>{{ e.location }}</p>
+          <p>{{ e.duration }} min away</p>
+        </div>
       </div>
     </li>
   </ul>
@@ -31,20 +36,27 @@ export default {
 
 <style scoped>
 .tutor {
-  background-image: url('../assets/logo.png');
-  background-position: center top;
-  background-size: cover;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid lightgrey;
 }
 
-.tutor h3 {
-  position: absolute;
-  top: 10px;
-  left: 20px;
+.tutor img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
 }
 
-.tutor h4 {
-  position: absolute;
-  bottom: 15px;
-  right: 10px;
+.tutor div {
+  display: inline-block;
+  vertical-align: middle;
 }
+
+.tutor .info {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 </style>
