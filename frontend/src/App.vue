@@ -69,7 +69,7 @@ export default {
           console.log(json);
           json.forEach(tutor => {
             this.foundNearbyTutors.push({
-              img: "../${tutor.img}",
+              img: "../" + tutor.img,
               name: tutor.name,
               location: tutor.location,
               duration: 5
