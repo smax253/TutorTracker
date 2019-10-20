@@ -20,8 +20,7 @@ export default {
   },
   data () {
     return {
-      // Course Selector fields
-      selectedCourseCode: "",
+      // for querying nearest tutors
       currLat: "",
       currLon: ""
 
